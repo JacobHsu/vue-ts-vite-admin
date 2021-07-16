@@ -1270,6 +1270,11 @@ is-number@^7.0.0:
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
+is-plain-object@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-5.0.0.tgz#4427f50ab3429e9025ea7d52e9043a9ef4159344"
+  integrity sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==
+
 isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
@@ -1934,6 +1939,13 @@ vue-tsc@^0.0.24:
   integrity sha512-Qx0V7jkWMtvddtaWa1SA8YKkBCRmjq9zZUB2UIMZiso6JSH538oHD2VumSzkoDnAfFbY3t0/j1mB2abpA0bGWA==
   dependencies:
     unzipper "0.10.11"
+
+vue-types@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/vue-types/-/vue-types-4.0.0.tgz#da13ccca0f979d3cfd076ce3a2b7050a9627ed5a"
+  integrity sha512-CGJ6br+FhK2OFgPzagVQxf6icQ63OVrOFjw+ekmb4bnTgn/FuKkjdlOqybOdq5aot7BF01yPoTczGD+fEMpKRw==
+  dependencies:
+    is-plain-object "5.0.0"
 
 vue@^3.0.5:
   version "3.1.4"
