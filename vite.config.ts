@@ -1,9 +1,14 @@
 import type { UserConfig, ConfigEnv } from 'vite';
 import { loadEnv } from 'vite';
+import { resolve } from 'path';
 import { createProxy } from './build/vite/proxy';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
+
+function pathResolve(dir: string) {
+  return resolve(process.cwd(), '.', dir);
+}
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
@@ -18,6 +23,21 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
   return {
     base: VITE_PUBLIC_PATH,
+    resolve: {
+      alias: [
+        // /@/xxxx => src/xxxx
+        {
+          find: /\/@\//,
+          replacement: pathResolve('src') + '/',
+        },
+        // /#/xxxx => types/xxxx
+        {
+          find: /\/#\//,
+          replacement: pathResolve('types') + '/',
+        },
+        // ['@vue/compiler-sfc', '@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js'],
+      ],
+    },
     server: {
       port: VITE_PORT,
       // Load proxy configuration from .env
