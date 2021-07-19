@@ -1,7 +1,6 @@
 import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
 import { PageEnum } from '/@/enums/pageEnum';
 
-
 const modules = import.meta.globEager('./modules/**/*.ts');
 
 const routeModuleList: AppRouteModule[] = [];

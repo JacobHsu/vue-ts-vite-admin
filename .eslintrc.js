@@ -24,6 +24,7 @@ module.exports = defineConfig({
     'plugin:prettier/recommended',
   ],
   rules: {
+    quotes: [1, 'single'],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
