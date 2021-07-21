@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import type { ProjectConfig } from '/#/config';
 import type { BeforeMiniState } from '/#/store';
 import { ThemeEnum } from '/@/enums/appEnum';
+import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
+import { Persistent } from '/@/utils/cache/persistent';
 
 interface AppState {
   darkMode?: ThemeEnum;
@@ -14,4 +16,10 @@ interface AppState {
 }
 export const useAppStore = defineStore({
   id: 'app',
+  state: (): AppState => ({
+    darkMode: undefined,
+    pageLoading: false,
+    projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
+    beforeMiniInfo: {},
+  }),
 });
