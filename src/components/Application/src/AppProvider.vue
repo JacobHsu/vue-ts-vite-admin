@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, toRefs, ref, unref } from 'vue';
 
-// import { createAppProviderContext } from './useAppContext';
+import { createAppProviderContext } from './useAppContext';
 import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
 import { prefixCls } from '/@/settings/designSetting';
 import { useAppStore } from '/@/store/modules/app';
@@ -32,7 +32,9 @@ export default defineComponent({
     });
 
     const { prefixCls } = toRefs(props);
-    // createAppProviderContext({ prefixCls, isMobile });
+
+    // Inject variables into the global
+    createAppProviderContext({ prefixCls, isMobile });
 
     function handleRestoreState() {
       if (unref(isMobile)) {
@@ -46,6 +48,7 @@ export default defineComponent({
           //     split: menuSplit,
           //   },
           // } = appStore.getProjectConfig;
+
           // appStore.setProjectConfig({
           //   menuSetting: {
           //     type: MenuTypeEnum.SIDEBAR,
@@ -56,18 +59,19 @@ export default defineComponent({
           // appStore.setBeforeMiniInfo({ menuMode, menuCollapsed, menuType, menuSplit });
         }
       } else {
-        // if (unref(isSetState)) {
-        //   isSetState.value = false;
-        //   const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniInfo;
-        //   appStore.setProjectConfig({
-        //     menuSetting: {
-        //       type: menuType,
-        //       mode: menuMode,
-        //       collapsed: menuCollapsed,
-        //       split: menuSplit,
-        //     },
-        //   });
-        // }
+        if (unref(isSetState)) {
+          isSetState.value = false;
+          const { menuMode, menuCollapsed, menuType, menuSplit } =
+            appStore.getBeforeMiniInfo;
+          appStore.setProjectConfig({
+            menuSetting: {
+              type: menuType,
+              mode: menuMode,
+              collapsed: menuCollapsed,
+              split: menuSplit,
+            },
+          });
+        }
       }
     }
     return () => slots.default?.();

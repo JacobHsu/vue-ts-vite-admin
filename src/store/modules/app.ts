@@ -4,6 +4,7 @@ import type { BeforeMiniState } from '/#/store';
 import { ThemeEnum } from '/@/enums/appEnum';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import { Persistent } from '/@/utils/cache/persistent';
+import { deepMerge } from '/@/utils';
 
 interface AppState {
   darkMode?: ThemeEnum;
@@ -22,4 +23,23 @@ export const useAppStore = defineStore({
     projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
     beforeMiniInfo: {},
   }),
+  getters: {
+    getBeforeMiniInfo(): BeforeMiniState {
+      return this.beforeMiniInfo;
+    },
+
+    getProjectConfig(): ProjectConfig {
+      return this.projectConfig || ({} as ProjectConfig);
+    },
+  },
+  actions: {
+    setBeforeMiniInfo(state: BeforeMiniState): void {
+      this.beforeMiniInfo = state;
+    },
+
+    setProjectConfig(config: DeepPartial<ProjectConfig>): void {
+      this.projectConfig = deepMerge(this.projectConfig || {}, config);
+      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+    },
+  },
 });
