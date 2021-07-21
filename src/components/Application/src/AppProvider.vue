@@ -19,7 +19,7 @@ export default defineComponent({
   props,
   setup(props, { slots }) {
     const isMobile = ref(false);
-    // const isSetState = ref(false);
+    const isSetState = ref(false);
 
     const appStore = useAppStore();
 
@@ -28,48 +28,48 @@ export default defineComponent({
       if (lgWidth) {
         isMobile.value = width.value - 1 < lgWidth;
       }
-      // handleRestoreState();
+      handleRestoreState();
     });
 
     const { prefixCls } = toRefs(props);
     // createAppProviderContext({ prefixCls, isMobile });
 
-    // function handleRestoreState() {
-    //   if (unref(isMobile)) {
-    //     if (!unref(isSetState)) {
-    //       isSetState.value = true;
-    //       const {
-    //         menuSetting: {
-    //           type: menuType,
-    //           mode: menuMode,
-    //           collapsed: menuCollapsed,
-    //           split: menuSplit,
-    //         },
-    //       } = appStore.getProjectConfig;
-    //       appStore.setProjectConfig({
-    //         menuSetting: {
-    //           type: MenuTypeEnum.SIDEBAR,
-    //           mode: MenuModeEnum.INLINE,
-    //           split: false,
-    //         },
-    //       });
-    //       appStore.setBeforeMiniInfo({ menuMode, menuCollapsed, menuType, menuSplit });
-    //     }
-    //   } else {
-    //     if (unref(isSetState)) {
-    //       isSetState.value = false;
-    //       const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniInfo;
-    //       appStore.setProjectConfig({
-    //         menuSetting: {
-    //           type: menuType,
-    //           mode: menuMode,
-    //           collapsed: menuCollapsed,
-    //           split: menuSplit,
-    //         },
-    //       });
-    //     }
-    //   }
-    // }
+    function handleRestoreState() {
+      if (unref(isMobile)) {
+        if (!unref(isSetState)) {
+          isSetState.value = true;
+          const {
+            menuSetting: {
+              type: menuType,
+              mode: menuMode,
+              collapsed: menuCollapsed,
+              split: menuSplit,
+            },
+          } = appStore.getProjectConfig;
+          appStore.setProjectConfig({
+            menuSetting: {
+              type: MenuTypeEnum.SIDEBAR,
+              mode: MenuModeEnum.INLINE,
+              split: false,
+            },
+          });
+          appStore.setBeforeMiniInfo({ menuMode, menuCollapsed, menuType, menuSplit });
+        }
+      } else {
+        if (unref(isSetState)) {
+          isSetState.value = false;
+          const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniInfo;
+          appStore.setProjectConfig({
+            menuSetting: {
+              type: menuType,
+              mode: menuMode,
+              collapsed: menuCollapsed,
+              split: menuSplit,
+            },
+          });
+        }
+      }
+    }
     return () => slots.default?.();
   },
 });
