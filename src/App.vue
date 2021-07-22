@@ -1,7 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <ConfigProvider>
+  <ConfigProvider :locale="getAntdLocale">
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -12,6 +12,8 @@
 import { defineComponent } from 'vue';
 import { ConfigProvider } from 'ant-design-vue';
 import { AppProvider } from '/@/components/Application';
+import { useTitle } from '/@/hooks/web/useTitle';
+import { useLocale } from '/@/locales/useLocale';
 // import HelloWorld from './components/HelloWorld.vue';
 
 export default defineComponent({
@@ -20,6 +22,14 @@ export default defineComponent({
     // HelloWorld,
     ConfigProvider,
     AppProvider,
+  },
+  setup() {
+    useTitle();
+
+    // support Multi-language
+    const { getAntdLocale } = useLocale();
+
+    return { getAntdLocale };
   },
 });
 </script>

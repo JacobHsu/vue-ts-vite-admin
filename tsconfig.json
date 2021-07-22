@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
+    // "typeRoots": ["./node_modules/@types/", "./types"],
     "baseUrl": ".",
     "paths": {
       "/@/*": ["src/*"],

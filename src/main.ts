@@ -3,6 +3,8 @@ import App from './App.vue';
 import { router, setupRouter } from '/@/router';
 import { setupRouterGuard } from '/@/router/guard';
 import { setupStore } from '/@/store';
+import { setupI18n } from '/@/locales/setupI18n';
+
 async function bootstrap() {
   const app = createApp(App);
 
@@ -11,6 +13,9 @@ async function bootstrap() {
 
   // Configure routing
   setupRouter(app);
+
+  // Multilingual configuration
+  await setupI18n(app);
 
   // router-guard
   setupRouterGuard(router);
