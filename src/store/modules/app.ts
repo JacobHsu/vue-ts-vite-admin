@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { store } from '/@/store';
 import type { ProjectConfig } from '/#/config';
 import type { BeforeMiniState } from '/#/store';
 import { ThemeEnum } from '/@/enums/appEnum';
@@ -49,3 +50,8 @@ export const useAppStore = defineStore({
     },
   },
 });
+
+// Need to be used outside the setup
+export function useAppStoreWithOut() {
+  return useAppStore(store);
+}

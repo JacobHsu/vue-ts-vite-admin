@@ -24,7 +24,10 @@ interface BasicStore {
   [MULTIPLE_TABS_KEY]: RouteLocationNormalized[];
 }
 
+type SessionStore = BasicStore;
+
 type LocalStore = BasicStore;
+type SessionKeys = keyof SessionStore;
 
 export type BasicKeys = keyof BasicStore;
 type LocalKeys = keyof LocalStore;
@@ -32,14 +35,23 @@ type LocalKeys = keyof LocalStore;
 const ls = createLocalStorage();
 
 const localMemory = new Memory(DEFAULT_CACHE_TIME);
+const sessionMemory = new Memory(DEFAULT_CACHE_TIME);
 
 export class Persistent {
   static getLocal<T>(key: LocalKeys) {
     return localMemory.get(key)?.value as Nullable<T>;
   }
 
-  static setLocal(key: LocalKeys, value: LocalStore[LocalKeys], immediate = false): void {
+  static setLocal(
+    key: LocalKeys,
+    value: LocalStore[LocalKeys],
+    immediate = false
+  ): void {
     localMemory.set(key, toRaw(value));
     immediate && ls.set(APP_LOCAL_CACHE_KEY, localMemory.getCache);
+  }
+
+  static getSession<T>(key: SessionKeys) {
+    return sessionMemory.get(key)?.value as Nullable<T>;
   }
 }
