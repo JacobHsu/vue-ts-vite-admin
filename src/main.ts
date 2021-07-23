@@ -20,6 +20,10 @@ async function bootstrap() {
   // router-guard
   setupRouterGuard(router);
 
+  // Mount when the route is ready
+  // https://next.router.vuejs.org/api/#isready
+  await router.isReady();
+
   app.mount('#app', true);
 }
 
